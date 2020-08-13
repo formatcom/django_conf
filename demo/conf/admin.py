@@ -29,9 +29,21 @@ class ItemForm(ModelForm):
             'rows': 1,
         })
 
+        # Agregar opción empty para que cuando se haga el cambio en el mode, se conserve en el type.
+        TYPE_CHOICES = (('', '---------'),)
+
+        # Set data for change type field options.
+        self.fields['mode'].widget.attrs['data-m1-type-options'] = TYPE_CHOICES + Item.MODE1_TYPE_CHOICES
+        self.fields['mode'].widget.attrs['data-m2-type-options'] = TYPE_CHOICES + Item.MODE2_TYPE_CHOICES
+
+        self.fields['item_type'].widget.attrs.update(**{
+            'class': 'django_item_form_type',
+        })
+
     class Meta:
         model = Item
         fields = '__all__'
+
 
 class ItemInline(admin.TabularInline):
     model = Item
