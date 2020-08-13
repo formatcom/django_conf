@@ -33,10 +33,10 @@ class Item(models.Model):
     )
 
     TYPE_MAP = {
-        TYPE1: ("input", "Type1Field1", "Type1Field2"),
-        TYPE2: ("input", "Type2Field1", "Type2Field2"),
-        TYPE3: ("textarea", "Type3Field1", "Type3Field3"),
-        TYPE4: ("textarea", "Type4Field1", "Type4Field4"),
+        str(TYPE1): ("input", "Type1Field1", "Type1Field2"),
+        str(TYPE2): ("input", "Type2Field1", "Type2Field2"),
+        str(TYPE3): ("textarea", "Type3Field1", "Type3Field3"),
+        str(TYPE4): ("textarea", "Type4Field1", "Type4Field4"),
     }
 
     mode   = models.IntegerField(choices=MODE_CHOICES)

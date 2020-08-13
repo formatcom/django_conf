@@ -41,6 +41,8 @@ function selector_mode(element) {
 		// Aquí obtengo los choices del campo type si el mode es M1
 		// a partir del data, pero como string '((1, "T1"), (2, "T2"))'.
 		let strTypeChoices = django.jQuery(element).data('m1-type-options')
+
+		// Parsear string de choices a un array de js.
 		let typeChoices = JSON.parse(strTypeChoices.replace(/\(/g, "[").replace(/\)/g, "]").replace(/\'/g, "\""))
 
 		populateSelectField(typeField, typeChoices)
@@ -49,9 +51,21 @@ function selector_mode(element) {
 }
 
 function selector_type(element) {
-	var typeMap = django.jQuery(element).data("type-map")
+	let val = django.jQuery(element).val()
 
-	console.log(typeMap)
+	var strTypeMap = django.jQuery(element).data("type-map")
+
+	let typeMap = JSON.parse(strTypeMap.replace(/\(/g, "[").replace(/\)/g, "]").replace(/\'/g, "\""))
+
+	let selectedType = typeMap[val]
+
+	parent = django.jQuery(django.jQuery(element).closest('tr'))
+
+	field1 = parent.find('.django_item_form_field1')
+	field2 = parent.find('.django_item_form_field2')
+
+	django.jQuery(field1).attr('placeholder', selectedType[1])
+	django.jQuery(field2).attr('placeholder', selectedType[2])
 }
 
 window.onload = function() {
