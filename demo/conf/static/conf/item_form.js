@@ -21,7 +21,8 @@ function selector_mode(element) {
 		django.jQuery(field1).attr('rows', 10)
 		django.jQuery(field2).attr('rows', 10)
 
-		// Aquí obtengo los choices a partir del data, pero como string '((1, "T1"), (2, "T2"))'.
+		// Obtener los choices del campo type si el mode es M2
+		// a partir del data, pero como string '((1, "T1"), (2, "T2"))'.
 		let strTypeChoices = django.jQuery(element).data('m2-type-options')
 
 		// Para poder parsear el string a un array, uso la función JSON.parse, pero esta
@@ -37,13 +38,20 @@ function selector_mode(element) {
 		django.jQuery(field1).attr('rows', 1)
 		django.jQuery(field2).attr('rows', 1)
 
-		// Aquí obtengo los choices a partir del data, pero como string '((1, "T1"), (2, "T2"))'.
+		// Aquí obtengo los choices del campo type si el mode es M1
+		// a partir del data, pero como string '((1, "T1"), (2, "T2"))'.
 		let strTypeChoices = django.jQuery(element).data('m1-type-options')
 		let typeChoices = JSON.parse(strTypeChoices.replace(/\(/g, "[").replace(/\)/g, "]").replace(/\'/g, "\""))
 
 		populateSelectField(typeField, typeChoices)
 	}
 
+}
+
+function selector_type(element) {
+	var typeMap = django.jQuery(element).data("type-map")
+
+	console.log(typeMap)
 }
 
 window.onload = function() {

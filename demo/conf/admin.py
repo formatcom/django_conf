@@ -29,16 +29,21 @@ class ItemForm(ModelForm):
             'rows': 1,
         })
 
-        # Agregar opción empty para que cuando se haga el cambio en el mode, se conserve en el type.
+        # Agregar opción empty para que cuando se haga el
+        # cambio en el mode, se conserve en el type.
         TYPE_CHOICES = (('', '---------'),)
 
-        # Set data for change type field options.
+        # Agregar data a el campo mode con los choices del campo
+        # type para cuando se selecciona modo 1 o modo 2.
         self.fields['mode'].widget.attrs['data-m1-type-options'] = TYPE_CHOICES + Item.MODE1_TYPE_CHOICES
         self.fields['mode'].widget.attrs['data-m2-type-options'] = TYPE_CHOICES + Item.MODE2_TYPE_CHOICES
 
         self.fields['item_type'].widget.attrs.update(**{
             'class': 'django_item_form_type',
+            'onchange': 'selector_type(this)',
         })
+
+        self.fields['item_type'].widget.attrs['data-type-map'] = Item.TYPE_MAP
 
     class Meta:
         model = Item
